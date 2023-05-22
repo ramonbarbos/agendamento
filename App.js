@@ -5,8 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 // Importe suas telas aqui
 import Login from './src/view/Login';
 import Register from './src/view/Register';
-import Main from './src/view/Main';
+import MainWithDrawer from './src/view/MainWithDrawer';
 import Update from './src/view/Update';
+import Listen from './src/view/Listen';
 
 const Stack = createStackNavigator();
 
@@ -14,10 +15,27 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Update" component={Update} />
-        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen 
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+        />
+        <Stack.Screen
+        name="Main" 
+        component={MainWithDrawer}
+        options={{ headerShown: false }}
+         />
+          <Stack.Screen
+        name="Update" 
+        component={Update}
+         />
+
+        <Stack.Screen
+        name="Register" 
+        component={Register}
+         />
+
+         
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet,FlatList,TouchableOpacity} from 'react-native';
 import { Ionicons,MaterialIcons,Entypo } from '@expo/vector-icons';
 
 
-const MainScreen = ({navigation}) => {
+const ListenScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MainScreen;
+export default ListenScreen;
