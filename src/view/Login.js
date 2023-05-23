@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
+
+import {  Box, Center, Input, Heading, FormControl, VStack, Icon,Button, Checkbox, HStack,Image} from "native-base";
+
+import { FontAwesome , Entypo, MaterialIcons } from '@expo/vector-icons';
+
+
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
+import { AuthContext } from '../controller/auth';
+
 
 const LoginScreen = () => {
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
   const navigation = useNavigation();
+
+  const { logar } = useContext(AuthContext);
+
 
   const handleLogin = async () => {
     try {
@@ -25,9 +35,9 @@ const LoginScreen = () => {
   
       // Verifique a resposta da API para determinar o sucesso do login
       if (data.tipo === 'sucesso') {
-        // Login bem-sucedido, faça o redirecionamento
-        alert(data.resposta.mensagem);
-        navigation.navigate('Main');
+        
+        logar(user, pass)
+
       } else {
         // Exiba uma mensagem de erro ao usuário
         alert('Login inválido. Verifique suas credenciais.');
@@ -45,24 +55,68 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bem-Vindo</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Login"
-        value={user}
-        onChangeText={setUser}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={pass}
-        onChangeText={setPass}
-      />
-      <Button style={styles.btn} title="Entrar" onPress={handleLogin} />
-      <Button title="Cadastrar" onPress={handleCadastrar} />
-    </View>
+    <Center
+      height="full"
+    >
+
+<Image source={{
+      uri: "https://cdn-icons-png.flaticon.com/512/3967/3967132.png"
+    }} alt="Alternate Text" size="xl" />
+
+      <VStack width="full" p={10}>  
+
+        <Box width="full" >
+            <Heading color="primary.500">
+              Entrar
+            </Heading>
+          
+              <FormControl >
+                <Input size="md" variant="underlined"
+                placeholder="Login"
+                mt={5}
+                InputLeftElement={
+                <Icon
+                  as={<FontAwesome name="user" color="black" />}
+                  size={5}
+                  ml={2}
+                />
+                  }
+                  onChangeText={setUser}
+
+                />
+                </FormControl>
+                <FormControl >
+                  <Input size="md" variant="underlined"
+                    placeholder=" Senha"
+                    mt={5}
+                    InputLeftElement={
+                    <Icon
+                      as={<Entypo name="lock"  color="black" />}
+                      size={5}
+                      ml={2}
+                    />
+                      }
+                      type={"password"}
+                      onChangeText={setPass}
+                    />
+                 </FormControl>
+          
+              <Button size="sm" mt={7}  variant="subtle"  onPress={() => handleLogin()} >Entrar</Button>
+                  
+        </Box>
+
+        <HStack mt={5}>       
+            <Checkbox mr={3} value="test" accessibilityLabel="This is a dummy checkbox" />     
+            <Text>
+              Concordo com a politica de segurança.
+            </Text>
+        </HStack> 
+
+       </VStack>
+
+    </Center>
+
+    
   );
 };
 

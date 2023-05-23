@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList, DrawerContentOptions } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons'; // Importe o pacote de ícones que você está usando
+import { MaterialIcons } from '@expo/vector-icons';
 
 import IndexScreen from './Index';
 import ListenScreen from './Listen';
@@ -20,6 +21,10 @@ const MainWithDrawer = ({ navigation }) => {
   const CustomDrawerContent = (props) => {
     return (
       <DrawerContentScrollView {...props}>
+         <DrawerItem
+        label=""
+        icon={({ color, size }) => <MaterialIcons name="person" color={color} size={size} />}
+      />
         <DrawerItemList {...props} />
         <DrawerItem
           label="Sair"
@@ -51,7 +56,7 @@ const MainWithDrawer = ({ navigation }) => {
         }}
       />
 
-  
+
    
     </Drawer.Navigator>
   );
