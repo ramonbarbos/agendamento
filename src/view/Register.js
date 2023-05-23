@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
+
+import {  Box, Center, Input, Heading, FormControl, VStack, Icon,Button, Checkbox, HStack,Image} from "native-base";
+
+import { FontAwesome , Entypo, MaterialIcons } from '@expo/vector-icons';
 
 const RegisterScreen = () => {
   const [login, setLogin] = useState('');
@@ -45,55 +48,57 @@ const RegisterScreen = () => {
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Novo Usuario</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Login"
-        value={login}
-        onChangeText={setLogin}
-      />
-        <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
+    <Center height="full">
      
-      <Button title="Cadastrar" onPress={handleRegister} />
-    </View>
+
+      <VStack width="full" p={10}>
+        <Heading color="primary.500">
+            Criar conta
+        </Heading>
+        <Box width="full">
+          <FormControl>
+            <Input
+              placeholder='Login'
+              size="md" variant="underlined"
+              mt={5}
+              InputLeftElement={
+                <Icon
+                  as={<FontAwesome name="user" color="black" />}
+                  size={5}
+                  ml={2}
+                />
+                  }
+                  onChangeText={setLogin}
+
+            />
+            
+          </FormControl>
+
+          <FormControl>
+            <Input
+              placeholder='Senha'
+              size="md" variant="underlined"
+              mt={5}
+              InputLeftElement={
+                <Icon
+                  as={<FontAwesome name="lock" color="black" />}
+                  size={5}
+                  ml={2}
+                />
+                  }
+                  onChangeText={setSenha}
+
+            />
+            
+          </FormControl>
+            
+          <Button size="sm" mt={7}  variant="subtle"  onPress={() => handleRegister()} >Criar</Button>
+
+        </Box>
+      </VStack>
+    </Center>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-  btn: {
-    width: '100%',
-    flex:1,
-    height: 40,
-    backgroundColor:'red',
-    marginBottom: 16,
-  },
-
-});
 
 export default RegisterScreen;

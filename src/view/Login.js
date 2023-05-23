@@ -102,6 +102,7 @@ const LoginScreen = () => {
                  </FormControl>
           
               <Button size="sm" mt={7}  variant="subtle"  onPress={() => handleLogin()} >Entrar</Button>
+              <Button size="sm" mt={7}  variant="subtle"  onPress={() => handleCadastrar()} >Registrar</Button>
                   
         </Box>
 
