@@ -10,7 +10,6 @@ const SelectServico = ({ onValueChange }) => {
   const [service, setService] = useState('');
   const [users, setUsers] = useState([]);
 
-
   const url = `http://10.0.0.120/apiRest/servico/listar`;
 
   useEffect(() => {
@@ -31,8 +30,18 @@ const SelectServico = ({ onValueChange }) => {
   }, []);
 
   const handleValueChange = (itemValue) => {
-    setService(itemValue);
-    onValueChange(itemValue);
+    const user = users.find((item) => item.id === itemValue);
+
+    if (user) {
+      const newItem = {
+        id: user.id,
+        nm_servico: user.nm_servico,
+        valor: user.valor,
+      };
+
+      setService(itemValue);
+      onValueChange(newItem);
+    }
   };
 
   return (

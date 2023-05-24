@@ -1,15 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { Ionicons, MaterialIcons, Entypo, FontAwesome5 } from '@expo/vector-icons';
-import { Box, Center, Select, CheckIcon, Button } from 'native-base';
-
+import { Box, Select, CheckIcon } from 'native-base';
 import { AuthContext } from '../controller/auth';
 
 const SelectFunc = ({ onValueChange }) => {
   const { user, nome } = useContext(AuthContext);
   const [service, setService] = useState('');
   const [users, setUsers] = useState([]);
-
 
   const url = `http://10.0.0.120/apiRest/funcionario/listar`;
 
@@ -31,8 +27,17 @@ const SelectFunc = ({ onValueChange }) => {
   }, []);
 
   const handleValueChange = (itemValue) => {
-    setService(itemValue);
-    onValueChange(itemValue);
+    const user = users.find((item) => item.id === itemValue);
+
+    if (user) {
+      const newItem = {
+        id: user.id,
+        nm_funcionario: user.nm_funcionario,
+      };
+
+      setService(itemValue);
+      onValueChange(newItem);
+    }
   };
 
   return (
