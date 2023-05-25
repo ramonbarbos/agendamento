@@ -4,6 +4,7 @@ import { Box, VStack, Text, HStack, Button, Center } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Pressable, TextInput } from 'react-native';
 
+
 const DataTime = ({ onDateTimeSelected }) => {
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
@@ -12,6 +13,7 @@ const DataTime = ({ onDateTimeSelected }) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedDateTime, setSelectedDateTime] = useState('');
+  
 
   const toggleDatePicker = () => {
     setShowDatePicker(!showDatePicker);
@@ -75,6 +77,7 @@ const DataTime = ({ onDateTimeSelected }) => {
           display='spinner'
           value={date}
           onChange={handleDateChange}
+          locale='pt-BR' // Define o idioma como português
         />
       )}
 
@@ -93,6 +96,7 @@ const DataTime = ({ onDateTimeSelected }) => {
           display='spinner'
           value={time}
           onChange={handleTimeChange}
+          locale='pt-BR' // Define o idioma como português
         />
       )}
 

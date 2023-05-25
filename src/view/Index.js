@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, VStack, Text, HStack, Button, Center } from 'native-base';
 import SelectFunc from '../components/SelectFunc';
 import SelectServico from '../components/SelectServico';
+
+
+import { AuthContext } from '../controller/auth';
 
 import DataTime from '../components/DataTime';
 
@@ -9,6 +12,7 @@ const IndexScreen = () => {
   const [selectedFunc, setSelectedFunc] = useState(null);
   const [selectedServ, setSelectedServ] = useState(null);
   const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const { user } = useContext(AuthContext);
 
   const handleSelectFunc = (value) => {
     setSelectedFunc(value);
@@ -28,12 +32,39 @@ const IndexScreen = () => {
     console.log('Data e hora selecionadas:', selectedDateTime);
   };
 
-  const handleAgendar = () => {
+  const handleUser = (selectedDateTime) => {
+    
+  };
+
+  const handleAgendar = async () => {
     console.log("Agendado");
+    console.log('Usuario ', user.id);
+
     if (selectedFunc && selectedServ && selectedDateTime) {
-      alert(
-        `Funcionário: ${selectedFunc.nm_funcionario}\nServiço: ${selectedServ.nm_servico}\nValor: R$ ${selectedServ.valor}\nData e Hora: ${selectedDateTime}`
-      );
+      
+        const requestBody = {
+          id_funcionario: selectedFunc.id,
+          id_usuario: user.id,
+          data_hora: selectedDateTime,
+          id_servico: selectedServ.id
+        };
+  
+        const response = await fetch('http://10.0.0.120/apiRest/agenda/cadastrar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+        const responseData = await response.json();
+
+        if (responseData.tipo === 'sucesso') {
+          alert("Agendado");
+          //navigation.navigate('Login')
+        } else {
+          console.log('Request failed:', responseData.resposta);
+        }
+      
     } else {
       alert(
         `Não é possível agendar sem completar as informações.`

@@ -35,8 +35,9 @@ const LoginScreen = () => {
   
       // Verifique a resposta da API para determinar o sucesso do login
       if (data.tipo === 'sucesso') {
-        
-        logar(user, pass)
+        $id = data.resposta.logado;
+
+        logar($id,user, pass)
 
       } else {
         // Exiba uma mensagem de erro ao usuário

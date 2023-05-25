@@ -10,11 +10,12 @@ function AuthProvider({children}){
     const [user, setUser] = useState({});
     const navigation = useNavigation();
 
-    function logar(login, senha){
+    function logar(id,login, senha){
         if(login !== '' && senha !== ''){
 
             
             setUser({
+                id: id,
                 login: login,
                 status: "ONLINE"
             })
