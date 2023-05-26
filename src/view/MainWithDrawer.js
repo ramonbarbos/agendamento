@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import IndexScreen from './Index';
 import ListenScreen from './Listen';
 import UpdateScreen from './Update';
+import AgendaScreen from './Agenda';
 
 
 const Drawer = createDrawerNavigator();
@@ -49,6 +50,15 @@ const MainWithDrawer = ({ navigation }) => {
       <Drawer.Screen
         name="Listagem"
         component={ListenScreen}
+        options={{
+          drawerIcon: ({ color, size, focused }) => (
+            <Icon name="list" color={color} size={size} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Agenda"
+        component={AgendaScreen}
         options={{
           drawerIcon: ({ color, size, focused }) => (
             <Icon name="list" color={color} size={size} />

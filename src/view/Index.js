@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Box, VStack, Text, HStack, Button, Center } from 'native-base';
 import SelectFunc from '../components/SelectFunc';
 import SelectServico from '../components/SelectServico';
-
+import MyCard from '../components/MyCard';
 
 import { AuthContext } from '../controller/auth';
 
@@ -32,10 +32,6 @@ const IndexScreen = () => {
     console.log('Data e hora selecionadas:', selectedDateTime);
   };
 
-  const handleUser = (selectedDateTime) => {
-    
-  };
-
   const handleAgendar = async () => {
     console.log("Agendado");
     console.log('Usuario ', user.id);
@@ -46,7 +42,8 @@ const IndexScreen = () => {
           id_funcionario: selectedFunc.id,
           id_usuario: user.id,
           data_hora: selectedDateTime,
-          id_servico: selectedServ.id
+          id_servico: selectedServ.id,
+          valor: selectedServ.valor
         };
   
         const response = await fetch('http://10.0.0.120/apiRest/agenda/cadastrar', {
@@ -98,7 +95,9 @@ const IndexScreen = () => {
       <Button size="sm" mt={7} variant="subtle" onPress={handleAgendar}>
         Agendar
       </Button>
+      <MyCard />
     </Center>
+    
   );
 };
 
