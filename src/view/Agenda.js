@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Text } from 'react-native';
-import { Box, VStack, Divider } from 'native-base';
+import { Box, VStack, Divider, Heading, HStack, Center } from 'native-base';
 
 const AgendaScreen = ({ navigation }) => {
   const [registro, setRegistro] = useState([]);
@@ -30,28 +30,54 @@ const AgendaScreen = ({ navigation }) => {
   }, []);
 
   const renderUserItem = ({ item }) => (
-    <Box border={1} m={10} borderRadius="md" bg="gray.200">
-      <VStack space={4} divider={<Divider />}>
-        <Text px={4} pt={4}>
-          ID: {item.id}
-        </Text>
-        <Text px={4}>ID Funcionário: {item.id_funcionario}</Text>
-        <Text px={4}>ID Usuário: {item.id_usuario}</Text>
-        <Text px={4}>Data e Hora: {item.data_hora}</Text>
-        <Text px={4} pb={4}>ID Serviço: {item.id_servico} </Text>
-        <Text px={4} pb={4}>Valor: {item.valor} </Text>
+    <Center borderRadius="lg" bg="amber.300" mt={3} border={1}>
+    <Box  height={40}>
+      <HStack mt={4}>
+        <VStack space={1}>
+          <Heading size="xs" color="white">{item.id_funcionario}</Heading>
+          <Text color="white">Local</Text>
+        </VStack>
+      </HStack>
+  
+      <VStack mt={5}>
+        <Heading size="xs" color="white">{item.id_servico}</Heading>
       </VStack>
+  
+      <HStack mt={2}>
+        <VStack space={1}>
+          <Text color="white">Data</Text>
+          <Heading size="xs" color="white">{item.data_hora}</Heading>
+        </VStack>
+        <Divider orientation="vertical" mx={2} />
+        <VStack space={1}>
+          <Text color="white">Preço</Text>
+          <Heading size="xs" color="white">R$ {item.valor},00</Heading>
+        </VStack>
+      </HStack>
     </Box>
+  </Center>
+  
+     
+      
+      
+    
   );
 
   return (
-    <View>
-      <FlatList
-        data={registro}
-        renderItem={renderUserItem}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+    
+       <Center>
+        <Box p={8} m={1} borderRadius="md" width='full'>
+   
+        
+            <FlatList
+              data={registro}
+              renderItem={renderUserItem}
+              keyExtractor={(item) => item.id.toString()}
+            />
+              
+         
+        </Box>
+       </Center>
   );
 };
 

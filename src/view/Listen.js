@@ -6,7 +6,6 @@ import { Ionicons,MaterialIcons,Entypo } from '@expo/vector-icons';
 const ListenScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   const url = `http://10.0.0.120/apiRest/usuarios/listar`;
 
@@ -19,7 +18,6 @@ const ListenScreen = ({navigation}) => {
         if (responseData && responseData.resposta) {
           setUsers(responseData.resposta);
         }
-        setLoading(false);
       } catch (error) {
         console.error(error);
       }

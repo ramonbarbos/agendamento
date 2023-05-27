@@ -2,11 +2,10 @@ import React, { useState, useContext } from 'react';
 import { Box, VStack, Text, HStack, Button, Center } from 'native-base';
 import SelectFunc from '../components/SelectFunc';
 import SelectServico from '../components/SelectServico';
-import MyCard from '../components/MyCard';
+import DataTime from '../components/DataTime';
 
 import { AuthContext } from '../controller/auth';
 
-import DataTime from '../components/DataTime';
 
 const IndexScreen = () => {
   const [selectedFunc, setSelectedFunc] = useState(null);
@@ -16,33 +15,28 @@ const IndexScreen = () => {
 
   const handleSelectFunc = (value) => {
     setSelectedFunc(value);
-    console.log("ID Servidor:", value.id); // Acessa o id selecionado
-    console.log("Login:", value.nm_funcionario); // Acessa o login selecionado
+  
   };
 
   const handleSelectServ = (value) => {
     setSelectedServ(value);
-    console.log("ID Serviço:", value.id); // Acessa o id selecionado
-    console.log("Serviço:", value.nm_servico); // Acessa o login selecionado
-    console.log("Valor:", value.valor); // Acessa o login selecionado
+   
   };
 
   const handleDateTimeSelected = (selectedDateTime) => {
     setSelectedDateTime(selectedDateTime);
-    console.log('Data e hora selecionadas:', selectedDateTime);
+    
   };
 
   const handleAgendar = async () => {
-    console.log("Agendado");
-    console.log('Usuario ', user.id);
-
+  
     if (selectedFunc && selectedServ && selectedDateTime) {
       
         const requestBody = {
-          id_funcionario: selectedFunc.id,
+          id_funcionario: selectedFunc.nm_funcionario,
           id_usuario: user.id,
           data_hora: selectedDateTime,
-          id_servico: selectedServ.id,
+          id_servico: selectedServ.nm_servico,
           valor: selectedServ.valor
         };
   
@@ -79,7 +73,7 @@ const IndexScreen = () => {
 
       <Box mt={5} minWidth="200">
         <HStack justifyContent="space-between">
-          <Text color="primary.500">Servidor:</Text>
+          <Text color="primary.500">Servidor:  </Text>
           <Text color="primary.500">{selectedFunc ? selectedFunc.nm_funcionario : '-'}</Text>
         </HStack>
         <HStack justifyContent="space-between">
@@ -93,9 +87,9 @@ const IndexScreen = () => {
       </Box>
 
       <Button size="sm" mt={7} variant="subtle" onPress={handleAgendar}>
-        Agendar
+        Agendar 
       </Button>
-      <MyCard />
+      
     </Center>
     
   );

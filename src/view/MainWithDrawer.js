@@ -8,6 +8,7 @@ import IndexScreen from './Index';
 import ListenScreen from './Listen';
 import UpdateScreen from './Update';
 import AgendaScreen from './Agenda';
+import FazerParte from './FazerParte';
 
 
 const Drawer = createDrawerNavigator();
@@ -47,15 +48,7 @@ const MainWithDrawer = ({ navigation }) => {
           ),
         }}
       />
-      <Drawer.Screen
-        name="Listagem"
-        component={ListenScreen}
-        options={{
-          drawerIcon: ({ color, size, focused }) => (
-            <Icon name="list" color={color} size={size} />
-          ),
-        }}
-      />
+     
       <Drawer.Screen
         name="Agenda"
         component={AgendaScreen}
@@ -65,7 +58,15 @@ const MainWithDrawer = ({ navigation }) => {
           ),
         }}
       />
-
+      <Drawer.Screen
+        name="Fazer parte"
+        component={FazerParte}
+        options={{
+          drawerIcon: ({ color, size, focused }) => (
+            <Icon name="star" color={color} size={size} />
+          ),
+        }}
+      />
 
    
     </Drawer.Navigator>
