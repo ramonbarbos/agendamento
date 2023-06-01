@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons ,FontAwesome5 } from '@expo/vector-icons';
 
 import { AuthContext } from '../controller/auth';
 
@@ -57,7 +57,7 @@ const MainWithDrawer = ({ navigation }) => {
         name="Novo"
         component={New}
         options={{
-          drawerIcon: ({ color, size, focused }) => <Icon name="home" color={color} size={size} />,
+          drawerIcon: ({ color, size, focused }) => <FontAwesome5  name="plus-circle" color={color} size={size} />,
         }}
       />
       <Drawer.Screen

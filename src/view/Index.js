@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Box, VStack, Text, HStack, Button, Center, Heading, Stack, Pressable,Badge,Spacer,Flex } from 'native-base';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons,FontAwesome5,FontAwesome  } from '@expo/vector-icons';
 import { AuthContext } from '../controller/auth';
 
 const IndexScreen = () => {
@@ -30,53 +30,53 @@ const IndexScreen = () => {
           </HStack>
         </VStack>
       </Box>
+
       <Box alignItems="center" mt={10}>
-        <HStack width={'full'} justifyContent={'space-evenly'}  p={1}>
-        <Pressable width={'45%'} >
+        <HStack width={'full'} justifyContent={'space-evenly'} h={'200'}>
+        <Pressable   width={'40%'}>
               {({
               isHovered,
               isFocused,
               isPressed
             }) => {
-              return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
+              return <Box  height={'100%'} bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
                 transform: [{
                   scale: isPressed ? 0.96 : 1
                 }]
               }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
                   
                   
-                  <Stack p="4" space={3} alignItems={'center'} width={'100%'}>
+                  <Stack p="4" space={3} alignItems={'center'}height={'100%'}  width={'100%'}>
                     <Stack space={2}>
-                      <MaterialCommunityIcons name="calendar-cursor" size={60} color="#06b6d4" />
+                    <FontAwesome5 name="plus-circle" size={60} color="#06b6d4" />
                     </Stack>
-                    <Stack alignItems={'center'} space={2}>
-                      <Heading size="md" ml="-1">Próxima</Heading>
-                      <Heading size="md" ml="-1">agenda</Heading>
+                    <Stack alignItems={'center'} justifyContent={'center'}  flexWrap="wrap" space={2}>
+                      <Heading fontSize="md" >Novo</Heading>
                     </Stack>
                   </Stack>
                   </Box>;
             }}
             </Pressable>
-                <Pressable width={'45%'} >
+                <Pressable width={'40%'} >
               {({
               isHovered,
               isFocused,
               isPressed
             }) => {
-              return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
+              return <Box   height={'100%'} bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
                 transform: [{
                   scale: isPressed ? 0.96 : 1
                 }]
               }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
                   
                   
-                  <Stack p="4" space={3} alignItems={'center'} width={'100%'}>
+                  <Stack p="4" space={3} alignItems={'center'} height={'100%'} width={'100%'}>
                     <Stack space={2}>
-                      <MaterialCommunityIcons name="calendar-clock" size={60} color="#06b6d4" />
+                      <MaterialCommunityIcons name="calendar-check-outline" size={60} color="#06b6d4" />
                     </Stack>
-                    <Stack alignItems={'center'} space={2}>
-                      <Heading size="md" ml="-1">Histórico</Heading>
-                      <Heading size="md" ml="-1">da agenda</Heading>
+                    <Stack alignItems={'center'} justifyContent={'center'} flexWrap="wrap" space={2}>
+                      <Heading fontSize="md" >Proxima</Heading>
+                      <Heading fontSize="md" >agenda</Heading>
                     </Stack>
                   </Stack>
                     
@@ -85,6 +85,63 @@ const IndexScreen = () => {
             </Pressable>
         </HStack>
       </Box>
+
+      <Box alignItems="center" mt={10}>
+        <HStack width={'full'} justifyContent={'space-evenly'}  h={'200'}>
+        <Pressable   width={'40%'}>
+              {({
+              isHovered,
+              isFocused,
+              isPressed
+            }) => {
+              return <Box  height={'100%'} bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
+                transform: [{
+                  scale: isPressed ? 0.96 : 1
+                }]
+              }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
+                  
+                  
+                  <Stack p="4" space={3}  alignItems={'center'} height={'100%'} width={'100%'}>
+                    <Stack space={2}>
+                    <MaterialCommunityIcons name="calendar-clock" size={60} color="#06b6d4" />
+                    </Stack>
+                    <Stack alignItems={'center'} justifyContent={'center'} space={2} flexWrap="wrap">
+                      <Heading fontSize="md">Histórico</Heading>
+                      <Heading fontSize="md">agenda</Heading>
+                    </Stack>
+
+                  </Stack>
+                  </Box>;
+            }}
+            </Pressable>
+                <Pressable width={'40%'} >
+              {({
+              isHovered,
+              isFocused,
+              isPressed
+            }) => {
+              return <Box   height={'100%'} bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
+                transform: [{
+                  scale: isPressed ? 0.96 : 1
+                }]
+              }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
+                  
+                  
+                  <Stack p="4" space={3} alignItems={'center'} height={'100%'} width={'100%'}>
+                    <Stack space={2}>
+                      <FontAwesome name="wechat" size={60} color="#06b6d4" />
+                    </Stack>
+                    <Stack alignItems={'center'} justifyContent={'center'}  flexWrap="wrap" space={2}>
+                      <Heading fontSize="md" >Chat</Heading>
+                    </Stack>
+                  </Stack>
+                    
+                  </Box>;
+            }}
+            </Pressable>
+        </HStack>
+      </Box>
+
     </Center>
   );
 };
