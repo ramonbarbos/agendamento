@@ -1,97 +1,91 @@
 import React, { useState, useContext } from 'react';
-import { Box, VStack, Text, HStack, Button, Center } from 'native-base';
-import SelectFunc from '../components/SelectFunc';
-import SelectServico from '../components/SelectServico';
-import DataTime from '../components/DataTime';
-
+import { Box, VStack, Text, HStack, Button, Center, Heading, Stack, Pressable,Badge,Spacer,Flex } from 'native-base';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AuthContext } from '../controller/auth';
 
-
 const IndexScreen = () => {
-  const [selectedFunc, setSelectedFunc] = useState(null);
-  const [selectedServ, setSelectedServ] = useState(null);
-  const [selectedDateTime, setSelectedDateTime] = useState(null);
   const { user } = useContext(AuthContext);
+  const [isAgendaPressed, setIsAgendaPressed] = useState(false);
+  const [isHistoricoPressed, setIsHistoricoPressed] = useState(false);
 
-  const handleSelectFunc = (value) => {
-    setSelectedFunc(value);
-  
+  const handleAgendaPress = () => {
+    console.log("Agenda pressionada");
+    setIsAgendaPressed(!isAgendaPressed);
   };
 
-  const handleSelectServ = (value) => {
-    setSelectedServ(value);
-   
-  };
-
-  const handleDateTimeSelected = (selectedDateTime) => {
-    setSelectedDateTime(selectedDateTime);
-    
-  };
-
-  const handleAgendar = async () => {
-  
-    if (selectedFunc && selectedServ && selectedDateTime) {
-      
-        const requestBody = {
-          id_funcionario: selectedFunc.nm_funcionario,
-          id_usuario: user.id,
-          data_hora: selectedDateTime,
-          id_servico: selectedServ.nm_servico,
-          valor: selectedServ.valor
-        };
-  
-        const response = await fetch('http://10.0.0.120/apiRest/agenda/cadastrar', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
-        const responseData = await response.json();
-
-        if (responseData.tipo === 'sucesso') {
-          alert("Agendado");
-          //navigation.navigate('Login')
-        } else {
-          console.log('Request failed:', responseData.resposta);
-        }
-      
-    } else {
-      alert(
-        `Não é possível agendar sem completar as informações.`
-      );
-    }
+  const handleHistoricoPress = () => {
+    console.log("Histórico pressionado");
+    setIsHistoricoPressed(!isHistoricoPressed);
   };
 
   return (
     <Center width="full">
-      <Box>
-        <SelectFunc onValueChange={handleSelectFunc} />
-        <SelectServico onValueChange={handleSelectServ}/>
-        <DataTime onDateTimeSelected={handleDateTimeSelected} />
+      <Box width="full" bg={'primary.500'} justifyContent='center' alignItems='center' height={40}>
+        <VStack>
+          <Heading mt={2} color={'white'} size="md">Olá, {user.nome}</Heading>
+          <Text mt={2} color={'white'}>Seu próximo agendamento é no dia:</Text>
+          <HStack alignItems='center' mt={2}>
+            <MaterialCommunityIcons name="calendar" size={24} color="white" />
+            <Heading color={'white'} size="sm"> 01/01/2023</Heading>
+          </HStack>
+        </VStack>
       </Box>
-
-      <Box mt={5} minWidth="200">
-        <HStack justifyContent="space-between">
-          <Text color="primary.500">Servidor:  </Text>
-          <Text color="primary.500">{selectedFunc ? selectedFunc.nm_funcionario : '-'}</Text>
-        </HStack>
-        <HStack justifyContent="space-between">
-          <Text color="primary.500">Serviço:</Text>
-          <Text color="primary.500">{selectedServ ? selectedServ.nm_servico : '-'}</Text>
-        </HStack>
-        <HStack justifyContent="space-between">
-          <Text color="primary.500">Valor:</Text>
-          <Text color="primary.500">R$ {selectedServ ? selectedServ.valor : '-'}</Text>
+      <Box alignItems="center" mt={10}>
+        <HStack width={'full'} justifyContent={'space-evenly'}  p={1}>
+        <Pressable width={'45%'} >
+              {({
+              isHovered,
+              isFocused,
+              isPressed
+            }) => {
+              return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
+                transform: [{
+                  scale: isPressed ? 0.96 : 1
+                }]
+              }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
+                  
+                  
+                  <Stack p="4" space={3} alignItems={'center'} width={'100%'}>
+                    <Stack space={2}>
+                      <MaterialCommunityIcons name="calendar-cursor" size={60} color="#06b6d4" />
+                    </Stack>
+                    <Stack alignItems={'center'} space={2}>
+                      <Heading size="md" ml="-1">Próxima</Heading>
+                      <Heading size="md" ml="-1">agenda</Heading>
+                    </Stack>
+                  </Stack>
+                  </Box>;
+            }}
+            </Pressable>
+                <Pressable width={'45%'} >
+              {({
+              isHovered,
+              isFocused,
+              isPressed
+            }) => {
+              return <Box bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
+                transform: [{
+                  scale: isPressed ? 0.96 : 1
+                }]
+              }} p="5" rounded="8" shadow={3} borderWidth="1" borderColor="coolGray.300">
+                  
+                  
+                  <Stack p="4" space={3} alignItems={'center'} width={'100%'}>
+                    <Stack space={2}>
+                      <MaterialCommunityIcons name="calendar-clock" size={60} color="#06b6d4" />
+                    </Stack>
+                    <Stack alignItems={'center'} space={2}>
+                      <Heading size="md" ml="-1">Histórico</Heading>
+                      <Heading size="md" ml="-1">da agenda</Heading>
+                    </Stack>
+                  </Stack>
+                    
+                  </Box>;
+            }}
+            </Pressable>
         </HStack>
       </Box>
-
-      <Button size="sm" mt={7} variant="subtle" onPress={handleAgendar}>
-        Agendar 
-      </Button>
-      
     </Center>
-    
   );
 };
 

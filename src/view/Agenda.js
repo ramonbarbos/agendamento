@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import { Box, VStack, Divider, Heading, HStack, Center } from 'native-base';
 
+
+import { AuthContext } from '../controller/auth';
+
 const AgendaScreen = ({ navigation }) => {
   const [registro, setRegistro] = useState([]);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = 'http://10.0.0.120/apiRest/agenda/listar';
+      const url = `http://10.0.0.120/apiRest/agenda/listar/${user.id}`;
       try {
         const response = await fetch(url);
         const responseData = await response.json();
@@ -27,20 +31,20 @@ const AgendaScreen = ({ navigation }) => {
     return () => {
       clearInterval(timer); // Limpa o temporizador quando o componente é desmontado
     };
-  }, []);
+  }, [user.id]);
 
   const renderUserItem = ({ item }) => (
     <Center borderRadius="lg" bg="amber.300" mt={3} border={1}>
     <Box  height={40}>
       <HStack mt={4}>
         <VStack space={1}>
-          <Heading size="xs" color="white">{item.id_funcionario}</Heading>
+          <Heading size="xs" color="white">{item.nm_funcionario}</Heading>
           <Text color="white">Local</Text>
         </VStack>
       </HStack>
   
       <VStack mt={5}>
-        <Heading size="xs" color="white">{item.id_servico}</Heading>
+        <Heading size="xs" color="white">{item.nm_usuario}</Heading>
       </VStack>
   
       <HStack mt={2}>

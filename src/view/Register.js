@@ -24,7 +24,7 @@ const RegisterScreen = () => {
   };
 
   const handleRegister = async () => {
-    console.log(login, senha,cidade);
+    console.log(login, senha,nome,cidade);
 
     try {
       const requestBody = {
@@ -42,13 +42,13 @@ const RegisterScreen = () => {
         body: JSON.stringify(requestBody),
       });
 
-      console.log('Resposta da API:', response);
+      const responseData = await response.json();
+      console.log('Resposta da API:', responseData);
 
-      if (response.ok) {
+
+      if (responseData.tipo == 'sucesso') {
         alert("Cadastrado. Faça seu Login!")
         navigation.navigate('Login')
-
-        // Lógica para lidar com a resposta da API
       } else {
         console.log('Request failed:', response.status);
       }

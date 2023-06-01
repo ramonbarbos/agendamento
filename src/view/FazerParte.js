@@ -45,34 +45,14 @@ const FazerParte = () => {
       });
 
       const data = await response.json();
-      const idFunc = data.resposta.id_inserido;
+ 
 
-      const requestUser = {
-        login: user.login,
-        senha: user.senha,
-        nome: user.nome,
-        foto: user.foto,
-        cidade: user.cidade,
-        funcionario_id: idFunc,
-        cargo: user.cargo,
-        ativo:user.ativo
-      };
+      if (data.tipo === 'sucesso') {
 
-      const responseAtt = await fetch(`http://10.0.0.120/apiRest/usuarios/atualizar/${user.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestUser),
-      });
-
-
-      if (response.ok && responseAtt.ok) {
         alert("Solicitação enviada!")
         navigation.navigate("Main");
       } else {
-        console.log('Request failed:', response.status);
-        console.log('Request failed:', responseAtt.status);
+        console.log('Request failed:', data.resposta);
       }
     } catch (error) {
       console.error('Erro:', error);
@@ -83,7 +63,7 @@ const FazerParte = () => {
     <Center height="full">
       <VStack width="full" p={10}>
         <Heading color="primary.500">
-          Solicitação
+          Solicitação {user.id}
         </Heading>
         <Box width="full">
           <FormControl>

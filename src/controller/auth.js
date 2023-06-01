@@ -6,7 +6,6 @@ export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState({});
-  const [usuario, setUsuario] = useState([]);
   const navigation = useNavigation();
 
   async function logar(id, login, senha) {
@@ -15,23 +14,15 @@ function AuthProvider({ children }) {
         const response = await fetch(`http://10.0.0.120/apiRest/usuarios/listar/${id}`);
         const data = await response.json();
 
-        if (response.ok) {
+        if (data.tipo === 'sucesso') {
           const formUsuario = data.resposta;
-            setUsuario(formUsuario)
-         
-            setUser({
-              id: usuario.id,
-              login: usuario.login,
-              senha: usuario.senha,
-              nome: usuario.nome,
-              foto: usuario.foto,
-              cidade: usuario.cidade,
-              funcionario_id: usuario.funcionario_id,
-              cargo: usuario.cargo,
-              ativo: usuario.ativo,
-            });
-            navigation.navigate("Main");
-         
+          setUser(formUsuario); // Atualize o estado 'user' com os dados retornados da API
+
+        
+
+
+
+          navigation.navigate("Main");
         } else {
           console.log("Request failed:", response.status);
         }
@@ -41,8 +32,12 @@ function AuthProvider({ children }) {
     }
   }
 
+  function resetData() {
+    setUser({}); // Redefina o estado 'user' para um objeto vazio
+  }
+
   return (
-    <AuthContext.Provider value={{ nome: "Ramon Barbosa", logar, user }}>
+    <AuthContext.Provider value={{ nome: "Ramon Barbosa", logar, user, resetData }}>
       {children}
     </AuthContext.Provider>
   );
