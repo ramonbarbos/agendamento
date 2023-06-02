@@ -11,7 +11,7 @@ const AgendaScreen = ({ navigation }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `http://10.0.0.120/apiRest/agenda/listar/${user.id}`;
+      const url = `http://10.0.0.120/apiRest/agenda/exibelista/${user.id}`;
       try {
         const response = await fetch(url);
         const responseData = await response.json();

@@ -50,6 +50,7 @@ const MainWithDrawer = ({ navigation }) => {
         name="Home"
         component={IndexScreen}
         options={{
+          headerTitle: false ,
           drawerIcon: ({ color, size, focused }) => <Icon name="home" color={color} size={size} />,
         }}
       />
