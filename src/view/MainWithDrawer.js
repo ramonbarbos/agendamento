@@ -6,7 +6,6 @@ import { MaterialIcons ,FontAwesome5 } from '@expo/vector-icons';
 import { AuthContext } from '../controller/auth';
 
 import IndexScreen from './Index';
-import AgendaScreen from './Agenda';
 import FazerParte from './FazerParte';
 import New from './New';
 
@@ -61,13 +60,7 @@ const MainWithDrawer = ({ navigation }) => {
           drawerIcon: ({ color, size, focused }) => <FontAwesome5  name="plus-circle" color={color} size={size} />,
         }}
       />
-      <Drawer.Screen
-        name="Agenda"
-        component={AgendaScreen}
-        options={{
-          drawerIcon: ({ color, size, focused }) => <Icon name="list" color={color} size={size} />,
-        }}
-      />
+     
       <Drawer.Screen
         name="Fazer parte"
         component={FazerParte}

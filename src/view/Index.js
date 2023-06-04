@@ -3,6 +3,8 @@ import { Box, VStack, Text, HStack, Button, Center, Heading, Stack, Pressable, B
 import { MaterialCommunityIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { AuthContext } from '../controller/auth';
 import { useNavigation } from "@react-navigation/native";
+import { format, parse  } from 'date-fns';
+
 
 const IndexScreen = () => {
   const { user } = useContext(AuthContext);
@@ -10,7 +12,7 @@ const IndexScreen = () => {
   const [agenda, setAgenda] = useState([]);
   const [func, setFunc] = useState([]);
   const navigation = useNavigation();
-  const [isFunc, setIsFunc] = useState(false); // Corrigido: Utilize useState, não somente a função useState
+  const [isFunc, setIsFunc] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +39,6 @@ const IndexScreen = () => {
 
         if (responseData && responseData.resposta) {
           setFunc(responseData.resposta);
-          // console.log(responseData.resposta)
         }
       } catch (error) {
         console.error(error);
@@ -46,46 +47,53 @@ const IndexScreen = () => {
 
     fetchFuncData();
     fetchData();
-  }, []); // Corrigido: Adicionado um array vazio como dependência para o useEffect
+  }, []);
 
   useEffect(() => {
     if (user.id === func.usuario_id) {
       setIsFunc(true);
     }
-  }, [user.id, func.usuario_id]); // Corrigido: Adicionado as dependências user.id e func.usuario_id para o segundo useEffect
+  }, [user.id, func.usuario_id]);
 
   const handleNewPress = () => {
     navigation.navigate("Novo");
   };
 
-  const handleHistoricoPress = () => {
-    console.log("Histórico pressionado");
-    setIsHistoricoPressed(!isHistoricoPressed);
+  const handleProxPress = () => {
+    navigation.navigate("Agenda");
   };
+
+  const handleHistoryPress = () => {
+    navigation.navigate("AgendaHistory");
+  };
+
+  let formattedDate = '';
+
+  if (agenda.data_hora) {
+    const parsedDate = parse(agenda.data_hora, 'yyyy-MM-dd HH:mm:ss', new Date());
+    formattedDate = format(parsedDate, 'dd/MM/yyyy');
+  }
 
   return (
     <Center width="full">
       <Box width="full" bg={'primary.500'} justifyContent='center' alignItems='center' height={40}>
         <VStack>
           <Heading mt={2} color={'white'} size="md">Olá, {user.nome}</Heading>
-        
-             {isFunc ? (
-                    <Text mt={2} color={'white'}>Voce tem um novo agendamento!</Text>
-                  ) : (
-                    <React.Fragment>
-                      <Text mt={2} color={'white'}>Seu próximo agendamento é no dia:</Text>
-                      <Box>
-                        <HStack alignItems='center' mt={2}>
-                          <MaterialCommunityIcons name="calendar" size={24} color="white" />
-                          <Heading color={'white'} size="sm"> {agenda.data_hora} </Heading>
-                        </HStack>
-                      </Box>
-                    </React.Fragment>
-            )}
 
+          {isFunc ? (
+            <Text mt={2} color={'white'}>Você tem um novo agendamento!</Text>
+          ) : (
+            <React.Fragment>
+              <Text mt={2} color={'white'}>Seu próximo agendamento é no dia:</Text>
+              <Box>
+                <HStack alignItems='center' mt={2}>
+                  <MaterialCommunityIcons name="calendar" size={24} color="white" />
+                  <Heading color={'white'} size="sm"> {formattedDate} </Heading>
+                </HStack>
+              </Box>
+            </React.Fragment>
+          )}
 
-         
-         
         </VStack>
       </Box>
 
@@ -112,7 +120,7 @@ const IndexScreen = () => {
               );
             }}
           </Pressable>
-          <Pressable width={'40%'} >
+          <Pressable onPress={() => handleProxPress()} width={'40%'} >
             {({ isHovered, isFocused, isPressed }) => {
               return (
                 <Box height={'100%'} bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{
@@ -140,7 +148,7 @@ const IndexScreen = () => {
 
       <Box alignItems="center" mt={10}>
         <HStack width={'full'} justifyContent={'space-evenly'} h={'200'}>
-          <Pressable width={'40%'}>
+          <Pressable onPress={() => handleHistoryPress()} width={'40%'}>
             {({ isHovered, isFocused, isPressed }) => {
               return (
                 <Box height={'100%'} bg={isPressed ? "coolGray.200" : isHovered ? "coolGray.200" : "coolGray.100"} style={{

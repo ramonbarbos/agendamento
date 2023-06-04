@@ -8,7 +8,8 @@ import Login from './src/view/Login';
 import Register from './src/view/Register';
 import MainWithDrawer from './src/view/MainWithDrawer';
 import Update from './src/view/Update';
-import Listen from './src/view/Listen';
+import AgendaHistory from './src/view/AgendaHistory';
+import Agenda from './src/view/Agenda';
 
 import AuthProvider from './src/controller/auth'; // Importe o AuthProvider
 
@@ -37,6 +38,14 @@ function App() {
               <Stack.Screen
                 name="Register" 
                 component={Register}
+              />
+              <Stack.Screen
+                name="AgendaHistory" 
+                component={AgendaHistory}
+              />
+              <Stack.Screen
+                name="Agenda" 
+                component={Agenda}
               />
             </Stack.Navigator>
           </AuthProvider> 

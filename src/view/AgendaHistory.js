@@ -1,17 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import { Box, VStack, Divider, Heading, HStack, Center } from 'native-base';
+
 import { format } from 'date-fns'; // Importa a função format da biblioteca date-fns
 
 import { AuthContext } from '../controller/auth';
 
-const AgendaScreen = ({ navigation }) => {
+const AgendaHistory = ({ navigation }) => {
   const [registro, setRegistro] = useState([]);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = `http://10.0.0.120/apiRest/agenda/proximos/${user.id}`;
+      const url = `http://10.0.0.120/apiRest/agenda/historico/${user.id}`;
       try {
         const response = await fetch(url);
         const responseData = await response.json();
@@ -81,4 +82,4 @@ const AgendaScreen = ({ navigation }) => {
   );
 };
 
-export default AgendaScreen;
+export default AgendaHistory;
