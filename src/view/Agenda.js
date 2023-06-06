@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, FlatList, Text } from 'react-native';
-import { Box, VStack, Divider, Heading, HStack, Center } from 'native-base';
+import { Box, VStack, Divider, Heading, HStack, Center, Stack } from 'native-base';
 import { format } from 'date-fns'; // Importa a função format da biblioteca date-fns
+import { MaterialCommunityIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
+
 
 import { AuthContext } from '../controller/auth';
 
@@ -39,38 +41,42 @@ const AgendaScreen = ({ navigation }) => {
     const formattedTime = format(new Date(item.data_hora), 'HH:mm');
 
     return (
-      <Center borderRadius="lg" bg="amber.300" mt={3} border={1}>
-        <Box height={40}>
-          <HStack mt={4}>
-            <VStack space={1}>
-              <Heading size="xs" color="white">{item.nm_funcionario}</Heading>
-              <Text color="white">Local</Text>
-            </VStack>
-          </HStack>
+      <Box height={145} borderRadius="lg" bg="#fff" mt={3} border={1} p={2}>
+
+        
+        
   
-          <VStack mt={5}>
-            <Heading size="xs" color="white">{item.nm_usuario}</Heading>
-          </VStack>
-  
-          <HStack mt={2}>
-            <VStack space={1}>
-              <Text color="white">Data</Text>
-              <Heading size="xs" color="white">{formattedDate}</Heading>
-            </VStack>
-            <Divider orientation="vertical" mx={2} />
-            <VStack space={1}>
-              <Text color="white">Preço</Text>
-              <Heading size="xs" color="white">R$ {item.valor},00</Heading>
-            </VStack>
-          </HStack>
-        </Box>
-      </Center>
+      <HStack p={3} space={2} alignItems={'center'}>
+          <MaterialCommunityIcons name="calendar" size={24} color="#06b6d4" />
+          <Text fontSize="2xl" size="xs" color="white">{formattedDate}</Text>
+
+        <Divider orientation="vertical" mx={2} bg={'#e3e7e8'}/>
+          
+         <MaterialCommunityIcons name="clock-check-outline" size={24} color="#06b6d4" />
+          <Text fontSize="2xl" color="white"> {formattedTime}</Text>
+          
+      </HStack>
+
+      <Box bg="#e3e7e8" w={'100%'} h={0.5}></Box> 
+
+    <HStack p={2} space={2} justifyContent={'space-between'}  alignItems={'center'}>
+      <VStack  >
+        <Heading  size="lg">{item.nm_funcionario}</Heading>
+        <Text italic fontSize="2xl" > {item.id_servico}</Text>
+      </VStack>
+
+        <Stack>
+        <Heading  size="sm">R$ {item.valor},00</Heading>
+
+        </Stack>
+      </HStack>
+    </Box>
     );
   };
 
   return (
     <Center>
-      <Box p={8} m={1} borderRadius="md" width='full'>
+      <Box pl={6} pr={6} mt={1}  borderRadius="md" width='full'>
         <FlatList
           data={registro}
           renderItem={renderUserItem}
