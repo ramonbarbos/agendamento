@@ -1,7 +1,7 @@
 import React, { useState, useContext,useEffect } from 'react';
 import { View, FlatList, Text } from 'react-native';
-import { Box, VStack, Divider, Heading, HStack, Center, Stack } from 'native-base';
-import { MaterialCommunityIcons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
+import { Box, VStack, Divider, Heading, HStack, Center, Stack, Alert,  IconButton, CloseIcon  } from 'native-base';
+import { MaterialCommunityIcons, } from '@expo/vector-icons';
 import { format } from 'date-fns'; // Importa a função format da biblioteca date-fns
 
 import { AuthContext } from '../controller/auth';
@@ -9,6 +9,7 @@ import { AuthContext } from '../controller/auth';
 const AgendaHistory = ({ navigation }) => {
   const [registro, setRegistro] = useState([]);
   const { user } = useContext(AuthContext);
+  const [isVoid, setIsVoid] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,8 +18,11 @@ const AgendaHistory = ({ navigation }) => {
         const response = await fetch(url);
         const responseData = await response.json();
 
-        if (responseData && responseData.resposta) {
+       
+        if (responseData.tipo == 'sucesso' && responseData.resposta != 'Sem Resultado') {
           setRegistro(responseData.resposta);
+        } else if (responseData.resposta == 'Sem Resultado') {
+          setIsVoid(true);
         }
       } catch (error) {
         console.error(error);
@@ -75,13 +79,38 @@ const AgendaHistory = ({ navigation }) => {
 
   return (
     <Center>
-      <Box pl={6} pr={6} mt={1}  borderRadius="md" width='full'>
-        <FlatList
-          data={registro}
-          renderItem={renderUserItem}
-          keyExtractor={(item) => item.id.toString()}
-        />
-      </Box>
+
+      {isVoid ? (
+            <Box mt={2} >
+                      
+            <Alert w="100%" status='info' >
+              <VStack space={2} flexShrink={1} w="100%">
+                <HStack flexShrink={1} space={2} justifyContent="space-between">
+                  <HStack space={2} flexShrink={1}>
+                    <Alert.Icon mt="1" />
+                    <Text fontSize="md" color="coolGray.800">
+                        Você ainda não possui historico!          
+                    </Text>
+                  </HStack>
+                  <IconButton variant="unstyled" _focus={{ borderWidth: 0 }} icon={<CloseIcon size="3" />} _icon={{ color: 'coolGray.600' }} />
+                </HStack>
+              </VStack>
+            </Alert>
+
+            </Box>
+      ) : (
+        <React.Fragment>
+          <Box pl={6} pr={6} mt={1}  borderRadius="md" width='full'>
+          <FlatList
+            data={registro}
+            renderItem={renderUserItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </Box>
+      </React.Fragment>
+        )}
+
+     
     </Center>
   );
 };
