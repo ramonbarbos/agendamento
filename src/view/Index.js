@@ -8,11 +8,11 @@ import { format, parse  } from 'date-fns';
 
 const IndexScreen = () => {
   const { user } = useContext(AuthContext);
-  const [isHistoricoPressed, setIsHistoricoPressed] = useState(false);
   const [agenda, setAgenda] = useState([]);
   const [func, setFunc] = useState([]);
   const navigation = useNavigation();
   const [isFunc, setIsFunc] = useState(false);
+  const [isVoid, setIsVoid] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,7 +88,12 @@ const IndexScreen = () => {
               <Box>
                 <HStack alignItems='center' mt={2}>
                   <MaterialCommunityIcons name="calendar" size={24} color="white" />
-                  <Heading color={'white'} size="sm"> {formattedDate} </Heading>
+                  {isVoid ? (
+                    <Heading color={'white'} size="sm"> </Heading>
+                     ) : (
+                      <Heading color={'white'} size="sm"> {formattedDate} </Heading>
+                      )}
+                  
                 </HStack>
               </Box>
             </React.Fragment>

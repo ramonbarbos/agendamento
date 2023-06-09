@@ -10,6 +10,8 @@ const AgendaHistory = ({ navigation }) => {
   const [registro, setRegistro] = useState([]);
   const { user } = useContext(AuthContext);
   const [isVoid, setIsVoid] = useState(false);
+  const [isFunc, setIsFunc] = useState(false);
+  const [func, setFunc] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +30,22 @@ const AgendaHistory = ({ navigation }) => {
         console.error(error);
       }
     };
+    const fetchFuncData = async () => {
+      const url = `http://10.0.0.120/apiRest/funcionario/verificar/${user.id}`;
+
+      try {
+        const response = await fetch(url);
+        const responseData = await response.json();
+
+        if (responseData && responseData.resposta) {
+          setFunc(responseData.resposta);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFuncData();
 
     fetchData();
 
@@ -37,6 +55,12 @@ const AgendaHistory = ({ navigation }) => {
       clearInterval(timer); // Limpa o temporizador quando o componente é desmontado
     };
   }, [user.id]);
+
+  useEffect(() => {
+    if (user.id === func.usuario_id) {
+      setIsFunc(true);
+    }
+  }, [user.id, func.usuario_id]);
 
   const renderUserItem = ({ item }) => {
     // Formata a data e hora usando a função format da biblioteca date-fns
@@ -64,9 +88,24 @@ const AgendaHistory = ({ navigation }) => {
 
         <HStack p={2} space={2} justifyContent={'space-between'}  alignItems={'center'}>
           <VStack  >
-            <Heading  size="lg">{item.nm_funcionario}</Heading>
-            <Text italic fontSize="2xl" > {item.id_servico}</Text>
+
+          {isFunc ? (
+             <React.Fragment>
+             
+              <Heading  size="lg">{item.nm_usuario}</Heading>
+                <Text italic fontSize="2xl" > {item.id_servico}</Text>
+            </React.Fragment>
+            ) : (
+              <React.Fragment>
+                 <Heading  size="lg">{item.nm_funcionario}</Heading>
+              <Text italic fontSize="2xl" > {item.id_servico}</Text>
+
+              </React.Fragment>
+              )}
+
+           
           </VStack>
+
 
             <Stack>
             <Heading  size="sm">R$ {item.valor},00</Heading>

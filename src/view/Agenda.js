@@ -3,7 +3,6 @@ import { View, FlatList, Text } from 'react-native';
 import { Box, VStack, Divider, Heading, HStack, Center, Stack, Pressable, Modal, Button, Alert, IconButton, CloseIcon } from 'native-base';
 import { format } from 'date-fns';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 import { AuthContext } from '../controller/auth';
 
@@ -15,6 +14,9 @@ const AgendaScreen = ({ navigation }) => {
   const finalRef = React.useRef(null);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [isVoid, setIsVoid] = useState(false);
+  const [isFunc, setIsFunc] = useState(false);
+  const [func, setFunc] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +36,22 @@ const AgendaScreen = ({ navigation }) => {
       }
     };
 
+    const fetchFuncData = async () => {
+      const url = `http://10.0.0.120/apiRest/funcionario/verificar/${user.id}`;
+
+      try {
+        const response = await fetch(url);
+        const responseData = await response.json();
+
+        if (responseData && responseData.resposta) {
+          setFunc(responseData.resposta);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFuncData();
     fetchData();
 
     const timer = setInterval(fetchData, 5000);
@@ -42,6 +60,12 @@ const AgendaScreen = ({ navigation }) => {
       clearInterval(timer);
     };
   }, [user.id]);
+
+  useEffect(() => {
+    if (user.id === func.usuario_id) {
+      setIsFunc(true);
+    }
+  }, [user.id, func.usuario_id]);
 
   const handleDeleteAgenda = async (id) => {
     try {
@@ -78,7 +102,7 @@ const AgendaScreen = ({ navigation }) => {
       <Pressable onPress={() => handleNewPress(item.id)}>
         {({ isHovered, isFocused, isPressed }) => {
           return (
-            <Box height={145} borderRadius="lg" mt={3} border={1} p={2} bg={isPressed ? 'coolGray.200' : isHovered ? 'coolGray.200' : 'coolGray.100'} style={{ transform: [{ scale: isPressed ? 0.96 : 1 }] }}>
+            <Box height={145} borderRadius="lg" mt={3} border={1} p={2} bg={isPressed ? '#fff' : isHovered ? '#fff' : '#fff'} style={{ transform: [{ scale: isPressed ? 0.96 : 1 }] }}>
               <HStack p={3} space={2} alignItems="center">
                 <MaterialCommunityIcons name="calendar" size={24} color="#06b6d4" />
                 <Text fontSize="2xl" size="xs" color="white">
@@ -97,10 +121,18 @@ const AgendaScreen = ({ navigation }) => {
 
               <HStack p={2} space={2} justifyContent="space-between" alignItems="center">
                 <VStack>
-                  <Heading size="lg">{item.nm_funcionario}</Heading>
-                  <Text italic fontSize="2xl">
-                    {item.id_servico}
-                  </Text>
+                {isFunc ? (
+                    <React.Fragment>
+                        <Heading  size="lg">{item.nm_usuario}</Heading>
+                        <Text italic fontSize="2xl" > {item.id_servico}</Text>
+                    </React.Fragment>
+                    ) : (
+                      <React.Fragment>
+                        <Heading  size="lg">{item.nm_funcionario}</Heading>
+                        <Text italic fontSize="2xl" > {item.id_servico}</Text>
+                      </React.Fragment>
+                )}
+
                 </VStack>
 
                 <Stack>
