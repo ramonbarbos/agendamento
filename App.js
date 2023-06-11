@@ -41,7 +41,7 @@ function App() {
                 component={Register}
               />
               <Stack.Screen
-                name="AgendaHistory" 
+                name="Historico" 
                 component={AgendaHistory}
               />
               <Stack.Screen

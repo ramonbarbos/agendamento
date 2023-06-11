@@ -68,7 +68,7 @@ const New = () => {
     <Center width="full" h={'100%'} >
      
       <Box  w={'80%'} >
-        <SelectFunc mt={2} onValueChange={handleSelectFunc} />
+        <SelectFunc onValueChange={handleSelectFunc} />
         <SelectServico onValueChange={handleSelectServ}/>
         <DataTime onDateTimeSelected={handleDateTimeSelected} />
       </Box>

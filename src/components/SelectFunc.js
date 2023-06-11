@@ -41,7 +41,7 @@ const SelectFunc = ({ onValueChange }) => {
   };
 
   return (
-    <Box mt={4}>
+    <Box>
       <Select
         selectedValue={service}
         minWidth="200"

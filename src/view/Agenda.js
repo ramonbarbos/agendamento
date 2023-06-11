@@ -186,7 +186,17 @@ const AgendaScreen = ({ navigation }) => {
               <Modal.Body>
                
 
+             
                 <Button
+                
+                  leftIcon={<FontAwesome name="wechat" size={24} color="white" />}
+                  bg="#dbb11a"
+                  onPress={() => handleDeleteAgenda(selectedItemId)}
+                >
+                  Entrar em Contato
+                </Button>
+                <Button
+                mt={2}
                   leftIcon={<FontAwesome name="trash-o" size={24} color="white" />}
                   bg="#ba2a1a"
                   onPress={() => handleDeleteAgenda(selectedItemId)}

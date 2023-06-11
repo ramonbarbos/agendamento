@@ -64,7 +64,7 @@ const IndexScreen = () => {
   };
 
   const handleHistoryPress = () => {
-    navigation.navigate("AgendaHistory");
+    navigation.navigate("Historico");
   };
 
   let formattedDate = '';
