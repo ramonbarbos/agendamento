@@ -10,6 +10,7 @@ import MainWithDrawer from './src/view/MainWithDrawer';
 import Update from './src/view/Update';
 import AgendaHistory from './src/view/AgendaHistory';
 import Agenda from './src/view/Agenda';
+import New from './src/view/New';
 
 import AuthProvider from './src/controller/auth'; // Importe o AuthProvider
 
@@ -46,6 +47,10 @@ function App() {
               <Stack.Screen
                 name="Agenda" 
                 component={Agenda}
+              />
+              <Stack.Screen
+                name="Nova Agenda" 
+                component={New}
               />
             </Stack.Navigator>
           </AuthProvider> 

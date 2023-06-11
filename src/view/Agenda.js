@@ -120,7 +120,7 @@ const AgendaScreen = ({ navigation }) => {
               <Box bg="#e3e7e8" w="100%" h={0.5}></Box>
 
               <HStack p={2} space={2} justifyContent="space-between" alignItems="center">
-                <VStack>
+                <VStack> 
                 {isFunc ? (
                     <React.Fragment>
                         <Heading  size="lg">{item.nm_usuario}</Heading>

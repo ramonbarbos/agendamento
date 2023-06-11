@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { MaterialIcons ,FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons ,FontAwesome5,Ionicons } from '@expo/vector-icons';
 
 import { AuthContext } from '../controller/auth';
 
@@ -24,14 +24,18 @@ const MainWithDrawer = ({ navigation }) => {
       <DrawerContentScrollView {...props}>
         <DrawerItem
           label=""
-          icon={({ color, size }) => <MaterialIcons name="person" color={color} size={size} />}
         />
         <DrawerItemList {...props} />
+        <DrawerItem
+          label="Ajustes"
+          icon={({ color, size }) => <Ionicons  name="settings" color={color} size={size} />}
+        />
         <DrawerItem
           label="Sair"
           onPress={handleLogout}
           icon={({ color, size }) => <Icon name="exit" color={color} size={size} />}
         />
+       
       </DrawerContentScrollView>
     );
   };
@@ -46,21 +50,26 @@ const MainWithDrawer = ({ navigation }) => {
       }
     }}>
       <Drawer.Screen
-        name="Home"
+        name="Inicio"
         component={IndexScreen}
-        options={{
-          headerTitle: false ,
-          drawerIcon: ({ color, size, focused }) => <Icon name="home" color={color} size={size} />,
-        }}
+        options={({ navigation }) => ({
+          headerTitle: false,
+          headerRight: () => (
+            <Icon
+              name="notifications" // Ícone de notificação
+              type="material" // O tipo de ícone pode variar dependendo do pacote que você está usando
+              color="white"
+              size={25}
+              style={{ marginRight: 14 }} 
+              onPress={() => navigation.navigate("Notifications")} // Ajuste a rota correta para as notificações
+            />
+          ),
+          drawerIcon: ({ color, size, focused }) => (
+            <Icon name="home" color={color} size={size} />
+          ),
+        })}
       />
-      <Drawer.Screen
-        name="Novo"
-        component={New}
-        options={{
-          drawerIcon: ({ color, size, focused }) => <FontAwesome5  name="plus-circle" color={color} size={size} />,
-        }}
-      />
-     
+  
       <Drawer.Screen
         name="Fazer parte"
         component={FazerParte}

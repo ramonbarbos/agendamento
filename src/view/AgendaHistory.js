@@ -91,15 +91,13 @@ const AgendaHistory = ({ navigation }) => {
 
           {isFunc ? (
              <React.Fragment>
-             
-              <Heading  size="lg">{item.nm_usuario}</Heading>
+                <Heading  size="lg">{item.nm_usuario}</Heading>
                 <Text italic fontSize="2xl" > {item.id_servico}</Text>
             </React.Fragment>
             ) : (
               <React.Fragment>
                  <Heading  size="lg">{item.nm_funcionario}</Heading>
-              <Text italic fontSize="2xl" > {item.id_servico}</Text>
-
+                 <Text italic fontSize="2xl" > {item.id_servico}</Text>
               </React.Fragment>
               )}
 

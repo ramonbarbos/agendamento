@@ -65,32 +65,16 @@ const New = () => {
   };
 
   return (
-    <Center width="full">
-      <Box width="full" bg={'amber.500'} alignItems='center'>
-        <Text color={'light.100'} >Voce é um {user.login}</Text>
-      </Box>
-      <Box>
-        <SelectFunc onValueChange={handleSelectFunc} />
+    <Center width="full" h={'100%'} >
+     
+      <Box  w={'80%'} >
+        <SelectFunc mt={2} onValueChange={handleSelectFunc} />
         <SelectServico onValueChange={handleSelectServ}/>
         <DataTime onDateTimeSelected={handleDateTimeSelected} />
       </Box>
 
-      <Box mt={5} minWidth="200">
-        <HStack justifyContent="space-between">
-          <Text color="primary.500">Servidor: </Text>
-          <Text color="primary.500">{selectedFunc ? selectedFunc.nm_funcionario : '-'}</Text>
-        </HStack>
-        <HStack justifyContent="space-between">
-          <Text color="primary.500">Serviço:</Text>
-          <Text color="primary.500">{selectedServ ? selectedServ.nm_servico : '-'}</Text>
-        </HStack>
-        <HStack justifyContent="space-between">
-          <Text color="primary.500">Valor:</Text>
-          <Text color="primary.500">R$ {selectedServ ? selectedServ.valor : '-'}</Text>
-        </HStack>
-      </Box>
-
-      <Button size="sm" mt={7} variant="subtle" onPress={handleAgendar}>
+     
+      <Button w={'80%'} size="sm" mt={7} variant="subtle" onPress={handleAgendar}>
         Agendar 
       </Button>
       

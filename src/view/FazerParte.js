@@ -63,7 +63,7 @@ const FazerParte = () => {
     <Center height="full">
       <VStack width="full" p={10}>
         <Heading color="primary.500">
-          Solicitação {user.id}
+          Torne-se um Parcerio
         </Heading>
         <Box width="full">
           <FormControl>

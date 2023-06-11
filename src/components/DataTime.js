@@ -62,12 +62,13 @@ const DataTime = ({ onDateTimeSelected }) => {
 
   return (
     <Box mt={5} minWidth="200">
-      <Pressable onPress={toggleDatePicker}>
+      <Pressable  onPress={toggleDatePicker}>
         <TextInput
           style={{ borderWidth: 1, borderColor: '#d6d6d6', padding: 7, borderRadius: 4 }}
           placeholder='Data'
           editable={false}
           value={selectedDate}
+          
         />
       </Pressable>
 
@@ -81,13 +82,15 @@ const DataTime = ({ onDateTimeSelected }) => {
         />
       )}
 
-      <Pressable onPress={toggleTimePicker}>
-        <TextInput
+      <Pressable   onPress={toggleTimePicker}>
+       <Box mt={4}>
+       <TextInput
           style={{ borderWidth: 1, borderColor: '#d6d6d6', padding: 7, borderRadius: 4 }}
           placeholder='Hora'
           editable={false}
           value={selectedTime}
         />
+       </Box>
       </Pressable>
 
       {showTimePicker && (

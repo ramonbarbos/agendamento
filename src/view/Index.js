@@ -56,7 +56,7 @@ const IndexScreen = () => {
   }, [user.id, func.usuario_id]);
 
   const handleNewPress = () => {
-    navigation.navigate("Novo");
+    navigation.navigate("Nova Agenda");
   };
 
   const handleProxPress = () => {
@@ -76,7 +76,7 @@ const IndexScreen = () => {
 
   return (
     <Center width="full">
-      <Box width="full" bg={'primary.500'} justifyContent='center' alignItems='center' height={40}>
+      <Box width="full" bg={'primary.500'} justifyContent='center' alignItems='center' height={40} borderBottomRadius={20}  boxShadow="0px 2px 4px rgba(0, 0, 0, 0.6)" >
         <VStack>
           <Heading mt={2} color={'white'} size="md">Olá, {user.nome}</Heading>
 
