@@ -3,5 +3,5 @@ Aplicativo React Native de agendamentos - efeituando requisições com API hospe
 
 1 - Requisistos:  NodeJS, Emulador, Expo-cli;
 
-2 - No Prompt de Comando: "npm instal";
+2 - No Prompt de Comando: "npm install";
 
